@@ -23,6 +23,9 @@ jobs:
           ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/gcloud.json
           ./google-cloud-sdk/bin/gcloud config set project cdtest-406103
 
+      - name: Build Docker image
+        run: |
+          docker build -t nodejs-sample-image .
 
       - name: Configure Docker and push image
         run: |
