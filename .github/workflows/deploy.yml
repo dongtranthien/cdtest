@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Google Cloud SDK
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@v355.0.0
         with:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
           project_id:	cdtest-406103
