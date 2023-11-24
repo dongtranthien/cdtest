@@ -18,8 +18,9 @@ jobs:
           curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-372.0.0-linux-x86_64.tar.gz
           tar -xf google-cloud-sdk.tar.gz
           ./google-cloud-sdk/install.sh --quiet
-          ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=<(echo "${{ secrets.GCLOUD_AUTH }}")
+          ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=<(echo "${{ secrets.GCLOUD_AUTH }}") --account=thiendong.iuh@gmail.com
           ./google-cloud-sdk/bin/gcloud config set project cdtest-406103 # Thay YOUR_PROJECT_ID bằng ID của project trên GCP
+
 
       - name: Configure Docker and push image
         run: |
