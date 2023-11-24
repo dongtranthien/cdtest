@@ -1,0 +1,34 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          project_id:	cdtest-406103
+
+      - name: Configure Docker and push image
+        run: |
+          gcloud auth configure-docker
+          docker tag nodejs-sample-image gcr.io/cdtest-406103/nodejs-sample-image
+          docker push gcr.io/cdtest-406103/nodejs-sample-image
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy nodejs-sample-service \
+            --image=gcr.io/cdtest-406103/nodejs-sample-image \
+            --platform=managed \
+            --region=us-central1 \
+            --allow-unauthenticated
